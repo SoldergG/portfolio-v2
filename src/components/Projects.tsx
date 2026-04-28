@@ -1,8 +1,88 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const projects = [
+  {
+    title: "AI Chat Swift",
+    description:
+      "Native iOS chat client for Claude AI with real-time streaming responses, Markdown rendering, and conversation management. Built with SwiftUI and Swift Concurrency.",
+    tags: ["SwiftUI", "Claude API", "iOS"],
+    color: "#8b5cf6",
+    icon: "🤖",
+    repo: "https://github.com/SoldergG/ai-chat-swift",
+    featured: true,
+  },
+  {
+    title: "Solar Calc v2",
+    description:
+      "Interactive solar energy calculator for Portugal with a 3D house visualisation. Estimates savings, ROI, and CO2 offset using real irradiance data.",
+    tags: ["Next.js", "Three.js", "TypeScript"],
+    color: "#f97316",
+    icon: "☀️",
+    repo: "https://github.com/SoldergG/solar-calc-v2",
+    featured: true,
+  },
+  {
+    title: "Lisbon Dashboard",
+    description:
+      "Real-time city data dashboard for Lisbon with live weather, air quality, metro status, tourism charts, and neighbourhood stats.",
+    tags: ["Next.js", "Recharts", "TypeScript"],
+    color: "#3b82f6",
+    icon: "🏙️",
+    repo: "https://github.com/SoldergG/lisbon-dashboard",
+    featured: true,
+  },
+  {
+    title: "Expense Tracker",
+    description:
+      "Full-featured expense tracking dashboard with interactive charts, category breakdowns, and CRUD operations. Clean data visualisation with Recharts.",
+    tags: ["Next.js", "Recharts", "TypeScript"],
+    color: "#10b981",
+    icon: "💰",
+    repo: "https://github.com/SoldergG/expense-tracker",
+    featured: true,
+  },
+  {
+    title: "Kebab API",
+    description:
+      "RESTful API for kebab restaurant discovery with PostGIS geospatial queries, reviews, ratings, and nearby search. Supabase + Express.",
+    tags: ["Express", "Supabase", "PostGIS"],
+    color: "#f59e0b",
+    icon: "🌯",
+    repo: "https://github.com/SoldergG/kebab-api",
+    featured: true,
+  },
+  {
+    title: "QR Menu",
+    description:
+      "Digital restaurant menu system — customers scan a QR code and see the full menu instantly. Mobile-first with search, categories, and allergen info.",
+    tags: ["Next.js", "Tailwind", "TypeScript"],
+    color: "#ec4899",
+    icon: "📱",
+    repo: "https://github.com/SoldergG/qr-menu",
+    featured: false,
+  },
+  {
+    title: "DevTools CLI",
+    description:
+      "Developer productivity CLI with colour conversion, conventional commit helper, and project scaffolding for Next.js, Vite, Express, and Expo.",
+    tags: ["Node.js", "Commander", "TypeScript"],
+    color: "#a855f7",
+    icon: "⚡",
+    repo: "https://github.com/SoldergG/devtools-cli",
+    featured: false,
+  },
+  {
+    title: "SolderUI Kit",
+    description:
+      "Open-source SwiftUI component library — toasts, skeleton loaders, ratings, badges, shimmer, glass cards, and pulse animations. SPM ready.",
+    tags: ["SwiftUI", "SPM", "iOS"],
+    color: "#6366f1",
+    icon: "🧩",
+    repo: "https://github.com/SoldergG/swift-ui-components",
+    featured: false,
+  },
   {
     title: "GroupMemo",
     description:
@@ -11,7 +91,7 @@ const projects = [
     color: "#6366f1",
     icon: "📸",
     repo: "https://github.com/SoldergG/GroupMemo",
-    featured: true,
+    featured: false,
   },
   {
     title: "KebabLocator",
@@ -21,27 +101,7 @@ const projects = [
     color: "#f59e0b",
     icon: "🌯",
     repo: "https://github.com/SoldergG/KebabLocator-iOS",
-    featured: true,
-  },
-  {
-    title: "KebabLocator Android",
-    description:
-      "Native Android version of KebabLocator built with Kotlin and Jetpack Compose. Seamless Material 3 design.",
-    tags: ["Kotlin", "Jetpack Compose", "Android"],
-    color: "#10b981",
-    icon: "🤖",
-    repo: "https://github.com/SoldergG/KebabLocator-Android",
     featured: false,
-  },
-  {
-    title: "SolarCalc",
-    description:
-      "Solar energy estimator for Portugal with interactive 3D visualisation built in Three.js. Calculates ROI and energy production.",
-    tags: ["Three.js", "HTML", "CSS"],
-    color: "#f97316",
-    icon: "☀️",
-    repo: "https://github.com/SoldergG/solarcalc",
-    featured: true,
   },
   {
     title: "TeeUp",
@@ -54,13 +114,13 @@ const projects = [
     featured: false,
   },
   {
-    title: "Sushi Tracker",
+    title: "Dotfiles",
     description:
-      "React Native + Expo app to track sushi consumption sessions with stats and history. Cross-platform iOS and Android.",
-    tags: ["React Native", "Expo", "Supabase"],
-    color: "#ec4899",
-    icon: "🍣",
-    repo: "https://github.com/SoldergG/sushi-tracker",
+      "Personal macOS dev environment — zsh config, git aliases, Brewfile, setup script, and macOS defaults. One command to bootstrap a new Mac.",
+    tags: ["Shell", "Zsh", "macOS"],
+    color: "#64748b",
+    icon: "⚙️",
+    repo: "https://github.com/SoldergG/dotfiles",
     featured: false,
   },
 ];
@@ -129,6 +189,7 @@ function ProjectCard({ project, index }: { project: (typeof projects)[0]; index:
 
 export default function Projects() {
   const ref = useRef<HTMLDivElement>(null);
+  const [showAll, setShowAll] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -138,6 +199,8 @@ export default function Projects() {
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
   }, []);
+
+  const visible = showAll ? projects : projects.filter((p) => p.featured);
 
   return (
     <section id="projects" className="py-28 px-6">
@@ -150,10 +213,32 @@ export default function Projects() {
             Things I&apos;ve{" "}
             <span className="gradient-text">built</span>
           </h2>
+          <div className="flex justify-center gap-3 mt-6">
+            <button
+              onClick={() => setShowAll(false)}
+              className={`text-sm px-4 py-2 rounded-lg transition-all ${
+                !showAll
+                  ? "bg-indigo-500/20 text-indigo-300 border border-indigo-500/30"
+                  : "text-white/40 border border-white/8 hover:text-white/60"
+              }`}
+            >
+              Featured
+            </button>
+            <button
+              onClick={() => setShowAll(true)}
+              className={`text-sm px-4 py-2 rounded-lg transition-all ${
+                showAll
+                  ? "bg-indigo-500/20 text-indigo-300 border border-indigo-500/30"
+                  : "text-white/40 border border-white/8 hover:text-white/60"
+              }`}
+            >
+              All Projects ({projects.length})
+            </button>
+          </div>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {projects.map((p, i) => (
+          {visible.map((p, i) => (
             <ProjectCard key={p.title} project={p} index={i} />
           ))}
         </div>
