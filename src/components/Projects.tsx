@@ -4,6 +4,36 @@ import { useEffect, useRef, useState } from "react";
 
 const projects = [
   {
+    title: "ProcuraEscola",
+    description:
+      "Portuguese university course comparator — search and compare courses by cutoff grades, employment rates, fees, and entrance exams across 16 institutions.",
+    tags: ["Next.js", "Tailwind", "TypeScript"],
+    color: "#3b82f6",
+    icon: "🎓",
+    repo: "https://github.com/SoldergG/procura-escola",
+    featured: true,
+  },
+  {
+    title: "Schema Visualizer",
+    description:
+      "Paste SQL schema and instantly generate an interactive ER diagram. Supports PostgreSQL and Supabase with drag-and-drop table nodes.",
+    tags: ["Next.js", "React Flow", "TypeScript"],
+    color: "#f97316",
+    icon: "🗃️",
+    repo: "https://github.com/SoldergG/schema-visualizer",
+    featured: true,
+  },
+  {
+    title: "SwiftUI Gallery",
+    description:
+      "35+ production-ready SwiftUI components you can copy and paste into Xcode. Search, filter by category, one-click copy with syntax highlighting.",
+    tags: ["Next.js", "Prism.js", "SwiftUI"],
+    color: "#f59e0b",
+    icon: "🧩",
+    repo: "https://github.com/SoldergG/swiftui-gallery",
+    featured: true,
+  },
+  {
     title: "AI Chat Swift",
     description:
       "Native iOS chat client for Claude AI with real-time streaming responses, Markdown rendering, and conversation management. Built with SwiftUI and Swift Concurrency.",
