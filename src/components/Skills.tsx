@@ -1,103 +1,107 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 
 const skillGroups = [
   {
-    category: "Mobile",
-    color: "#6366f1",
-    skills: [
-      { name: "Swift", level: 90 },
-      { name: "SwiftUI", level: 88 },
-      { name: "React Native", level: 75 },
-      { name: "Kotlin", level: 70 },
-      { name: "Jetpack Compose", level: 68 },
-    ],
+    title: "iOS & Mobile",
+    color: "var(--accent)",
+    skills: ["Swift", "SwiftUI", "UIKit", "Xcode", "Xcode Cloud", "MapKit", "CoreLocation", "CoreData", "SwiftData", "TestFlight", "React Native", "Kotlin", "Jetpack Compose"],
+    coreCount: 3,
   },
   {
-    category: "Web",
-    color: "#a855f7",
-    skills: [
-      { name: "Next.js", level: 82 },
-      { name: "TypeScript", level: 80 },
-      { name: "React", level: 85 },
-      { name: "Three.js", level: 70 },
-      { name: "Tailwind CSS", level: 90 },
-    ],
+    title: "Web & Frontend",
+    color: "var(--accent2)",
+    skills: ["Next.js", "TypeScript", "React", "Tailwind CSS", "Three.js", "React Three Fiber", "Framer Motion", "Recharts", "React Flow"],
+    coreCount: 2,
   },
   {
-    category: "Backend & Tools",
-    color: "#ec4899",
-    skills: [
-      { name: "Supabase", level: 80 },
-      { name: "Node.js", level: 72 },
-      { name: "Git", level: 88 },
-      { name: "PostgreSQL", level: 70 },
-      { name: "REST APIs", level: 85 },
-    ],
+    title: "Backend & Tools",
+    color: "var(--accent3)",
+    skills: ["Supabase", "PostgreSQL", "PostGIS", "Node.js", "Express", "REST APIs", "Git / GitHub", "Docker", "Vercel", "Netlify"],
+    coreCount: 2,
+  },
+  {
+    title: "AI & Workflow",
+    color: "var(--accent)",
+    skills: ["Claude API", "Claude Code", "Cursor", "Prompt Engineering", "OpenAI Whisper", "ElevenLabs API", "Vercel AI SDK"],
+    coreCount: 2,
   },
 ];
 
-function SkillBar({ name, level, color }: { name: string; level: number; color: string }) {
-  return (
-    <div className="mb-4">
-      <div className="flex justify-between text-sm mb-1.5">
-        <span className="text-white/70">{name}</span>
-        <span className="text-white/30">{level}%</span>
-      </div>
-      <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
-        <div
-          className="h-full rounded-full transition-all duration-1000 ease-out"
-          style={{
-            width: `${level}%`,
-            background: `linear-gradient(90deg, ${color}, ${color}99)`,
-          }}
-        />
-      </div>
-    </div>
-  );
-}
-
 export default function Skills() {
-  const ref = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add("visible")),
-      { threshold: 0.1 }
+      entries => entries.forEach(e => e.isIntersecting && e.target.classList.add("visible")),
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
     );
-    if (ref.current) observer.observe(ref.current);
+    document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section id="skills" className="py-28 px-6" style={{ background: "rgba(19,19,26,0.4)" }}>
-      <div ref={ref} className="section-fade max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <p className="text-indigo-400 text-sm font-semibold uppercase tracking-widest mb-4">
-            Skills
-          </p>
-          <h2 className="text-4xl font-bold text-white">
-            Tech I work with <span className="gradient-text">daily</span>
-          </h2>
-        </div>
+    <section id="skills" style={{ padding: "6rem 3rem", position: "relative", zIndex: 1 }}>
+      <div style={{ maxWidth: "1160px", margin: "0 auto" }}>
+        <div className="section-label reveal">Technical profile</div>
+        <h2 className="section-title reveal">Skills</h2>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          {skillGroups.map((group) => (
-            <div key={group.category} className="glow-border rounded-2xl p-6">
-              <h3
-                className="text-sm font-semibold uppercase tracking-widest mb-6"
-                style={{ color: group.color }}
-              >
-                {group.category}
-              </h3>
-              {group.skills.map((s) => (
-                <SkillBar key={s.name} name={s.name} level={s.level} color={group.color} />
-              ))}
-            </div>
-          ))}
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1.5fr",
+          gap: "4rem",
+          alignItems: "start",
+        }} className="skills-grid-resp">
+          {/* Intro text */}
+          <div className="reveal">
+            <p style={{ fontSize: "1.05rem", color: "var(--muted)", lineHeight: 1.85, marginBottom: "1.5rem" }}>
+              Self-taught developer with a strong focus on <strong style={{ color: "var(--text)" }}>iOS development</strong> and
+              a growing expertise in <strong style={{ color: "var(--text)" }}>full-stack web</strong> and{" "}
+              <strong style={{ color: "var(--text)" }}>AI-powered products</strong>.
+            </p>
+            <p style={{ fontSize: "1.05rem", color: "var(--muted)", lineHeight: 1.85, marginBottom: "1.5rem" }}>
+              I build real things — apps that run on real devices and services people actually use. Whether it&apos;s a native Swift app
+              or a Next.js web app, I focus on performance, polish, and shipping.
+            </p>
+            <p style={{ fontSize: "1.05rem", color: "var(--muted)", lineHeight: 1.85 }}>
+              Expert in using <em style={{ color: "var(--accent)", fontStyle: "normal", fontWeight: 600 }}>Claude AI</em> for development workflows, code generation,
+              and building AI-powered features into real products.
+            </p>
+          </div>
+
+          {/* Skill chip groups */}
+          <div>
+            {skillGroups.map((group, gi) => (
+              <div key={group.title} className="reveal" style={{ marginBottom: "2.5rem", transitionDelay: `${gi * 0.1}s` }}>
+                <div style={{
+                  fontFamily: "var(--font-dm-mono), monospace",
+                  fontSize: "0.65rem", color: group.color,
+                  letterSpacing: "0.2em", textTransform: "uppercase",
+                  marginBottom: "1rem", paddingBottom: "0.5rem",
+                  borderBottom: "1px solid var(--border)",
+                }}>
+                  {group.title}
+                </div>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+                  {group.skills.map((skill, si) => (
+                    <span
+                      key={skill}
+                      className={`skill-item${si < group.coreCount ? " core" : ""}`}
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .skills-grid-resp { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
+        }
+      `}</style>
     </section>
   );
 }
