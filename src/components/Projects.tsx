@@ -99,12 +99,12 @@ const projects: Project[] = [
     featured: true,
   },
   {
-    title: "Solar Calc v2",
+    title: "SolarCalc",
     description:
-      "Interactive solar energy calculator for Portugal with a 3D house visualisation. Estimates savings, ROI, and CO2 offset using real irradiance data.",
-    tags: ["Next.js", "Three.js", "TypeScript"],
+      "Solar calculator for Portuguese homes. Draw your roof on satellite imagery and get monthly production from PVGIS, savings, payback and CO2 offset.",
+    tags: ["Three.js", "Leaflet", "PVGIS"],
     tag: "Web App · 3D",
-    github: "https://github.com/SoldergG/solar-calc-v2",
+    live: "https://solarcalc-livid.vercel.app",
     num: "09",
     featured: false,
   },
@@ -263,6 +263,14 @@ function ProjectCard({ project }: { project: Project }) {
             display: "flex", alignItems: "center", gap: "0.4rem",
             transition: "gap 0.2s",
           }}>GitHub →</a>
+        )}
+        {project.live && (
+          <a href={project.live} target="_blank" rel="noopener noreferrer" style={{
+            fontSize: "0.78rem", fontWeight: 600, color: "var(--accent)",
+            textDecoration: "none", letterSpacing: "0.08em", textTransform: "uppercase",
+            display: "flex", alignItems: "center", gap: "0.4rem",
+            transition: "gap 0.2s",
+          }}>Visit site ↗</a>
         )}
         {project.appStore && (
           <a href={project.appStore} target="_blank" rel="noopener noreferrer" style={{
